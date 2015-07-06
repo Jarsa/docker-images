@@ -15,4 +15,6 @@ RUN cd /opt/odoo \
 
 ADD files/odoo.conf /opt/odoo/config/
 
+RUN ./opt/odoo/8.0/odoo.py -c /opt/odoo/conf/odoo.conf
+
 EXPOSE 8069
