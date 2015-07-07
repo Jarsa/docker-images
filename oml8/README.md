@@ -9,7 +9,7 @@ In order to download this private docker you must login into dockerhub with::
 
 To run this image you must install docker[1] then run Postgres  docker image from::
 
-    docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=odoo  postgres:latest
+    docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=odoo -d postgres:latest
 
 After the download process is completed you can run the container with::
 
