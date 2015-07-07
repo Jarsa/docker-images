@@ -8,13 +8,21 @@ RUN echo 'root:odoo' |chpasswd
 # Clone Odoo from Github
 USER odoo
 RUN /bin/bash -c "mkdir -p /opt/odoo/config"
-RUN cd /opt/odoo \
-	&& git clone -b 8.0 --single-branch https://github.com/odoo/odoo.git 8.0 \
+WORKDIR /opt/odoo
+RUN git clone -b 8.0 --single-branch https://github.com/odoo/odoo.git 8.0 \
 	&& git clone -b 8.0 --single-branch https://github.com/vauxoo/addons-vauxoo \
-	&& git clone -b 8.0 --single-branch https://github.com/vauxoo/odoo-mexico-v2
+	&& git clone -b 8.0 --single-branch https://508478c7dd9df622e61aeaf19e5cfe7dbeef4fb8:x-oauth-basic@github.com/vauxoo/odoo-mexico-v2.git
 
-ADD files/odoo.conf /opt/odoo/config/
+ADD files/entrypoint.sh /entrypoint.sh
+USER root
+RUN chmod +x /entrypoint.sh
 
-RUN ./opt/odoo/8.0/odoo.py -c /opt/odoo/conf/odoo.conf
+USER odoo
+
+#WORKDIR /opt/odoo/8.0
+#CMD ["/opt/odoo/8.0/odoo.py","--addons-path=/opt/odoo/8.0/addons,/opt/odoo/addons-vauxoo,/opt/odoo/odoo-mexico-v2","--db_user=$DB_ENV_POSTGRES_USER","--db_password=$DB_ENV_POSTGRES_PASSWORD","--db_host=$DB_PORT_5432_TCP_ADDR"]
+# RUN ./odoo.py -c /opt/odoo/config/odoo.conf
+
+CMD /entrypoint.sh
 
 EXPOSE 8069
