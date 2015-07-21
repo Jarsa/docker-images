@@ -9,13 +9,18 @@ RUN echo 'root:odoo' |chpasswd
 ADD files/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# Add config file
+RUN /bin/bash -c "mkdir -p /opt/odoo/config"
+ADD files/odoo.conf /opt/odoo/config/odoo.conf
+RUN chown -R odoo:odoo /opt/odoo && chmod 640 /opt/odoo/config/odoo.conf
+
 # Clone Odoo and OML addons from Github
 USER odoo
-RUN /bin/bash -c "mkdir -p /opt/odoo/config"
 WORKDIR /opt/odoo
-RUN git clone -b 8.0 --single-branch https://github.com/odoo/odoo.git 8.0 \
-	&& git clone -b 8.0 --single-branch https://github.com/vauxoo/addons-vauxoo \
-	&& git clone -b 8.0 --single-branch https://508478c7dd9df622e61aeaf19e5cfe7dbeef4fb8:x-oauth-basic@github.com/vauxoo/odoo-mexico-v2.git
+RUN git clone -b 8.0 --depth=1 --single-branch https://github.com/odoo/odoo.git 8.0 \
+	&& git clone -b 8.0 --depth=1 --single-branch https://github.com/vauxoo/addons-vauxoo \
+	&& git clone -b 8.0 --depth=1 --single-branch https://github.com/odoo-jarsa/addons-jarsa \
+	&& git clone -b 8.0 --depth=1 --single-branch https://508478c7dd9df622e61aeaf19e5cfe7dbeef4fb8:x-oauth-basic@github.com/vauxoo/odoo-mexico-v2.git
 
 CMD /entrypoint.sh
 
