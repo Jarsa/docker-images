@@ -1,4 +1,4 @@
-FROM vauxoo/odoo-80-image
+FROM jarsa/odoo-image:7.0
 MAINTAINER Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com.mx>
 
 # Create Odoo user
