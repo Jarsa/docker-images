@@ -61,6 +61,8 @@ RUN mkdir -p /var/log/odoo && \
 
 VOLUME ["/home/odoo/", "/var/log/odoo"]
 
+USER ODOO
 CMD /entrypoint.sh
 
 EXPOSE 8069
+EXPOSE 8072
