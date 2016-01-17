@@ -13,9 +13,10 @@ RUN chmod +x /entrypoint.sh
 RUN /bin/bash -c "mkdir -p /home/odoo"
 RUN chown odoo /home/odoo
 
+VOLUME /home/odoo
 VOLUME /opt/odoo
 
-RUN echo $'#!/bin/bash\nchown -R odoo:odoo /opt/odoo && chmod 640 /opt/odoo/odoo-server.conf' > /permission.sh && chmod +x permission.sh
+RUN echo $'#!/bin/bash\nchown -R odoo:odoo /opt/odoo && chmod 640 /opt/odoo/odoo-server.conf' > /permission.sh && chmod +x /permission.sh
 CMD /permission.sh
 
 USER odoo
