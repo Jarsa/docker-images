@@ -88,3 +88,4 @@ CMD /entrypoint.sh
 
 EXPOSE 8069
 EXPOSE 8072
+EXPOSE 22
