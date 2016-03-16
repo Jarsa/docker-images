@@ -1,4 +1,4 @@
-FROM ubuntu:12.04
+FROM ubuntu:14.04
 MAINTAINER Luis Triana <luis.triana@jarsa.com.mx>
 
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
@@ -43,6 +43,7 @@ RUN apt-get update -q && apt-get upgrade -q && \
     python-openssl \
     python-paramiko \
     python-pdftools \
+    python-pip \
     python-psutil \
     python-psycopg2 \
     python-pybabel \
@@ -62,9 +63,10 @@ RUN apt-get update -q && apt-get upgrade -q && \
     python-werkzeug \
     python-xlwt \
     python-yaml \
-    python-zbar
+    python-zbar \
     python-zsi \
     qrencode \
+    wget \
     xmlstarlet \ 
     xsltproc \
     zbar-tools 
@@ -84,9 +86,9 @@ RUN pip install pyopenssl && pip install pyyaml && pip install xmltodict
 
 # Install wkhtmltopdf
 RUN cd /tmp && \
-    wget -O http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2 && \
-    tar xvjf wkhtmltopdf-0.9.9-static-amd64.tar.bz2 \ 
-    mv wkhtmltopdf-amd64 /usr/bin/wkhtmltopdf \
+    wget http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.9.9-static-amd64.tar.bz2 && \
+    tar xvjf wkhtmltopdf-0.9.9-static-amd64.tar.bz2 && \ 
+    mv wkhtmltopdf-amd64 /usr/bin/wkhtmltopdf && \
     chmod +x /usr/bin/wkhtmltopdf
 
 # Install pip
